@@ -36,8 +36,6 @@ namespace TestTask_d20.Feautures.Dice
             float deltaTimeChangeState = timeChangeState;
             int currentAnimation = 0;
             
-            
-            
             Vector2 moveVector = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             moveVector = moveVector.normalized;
             

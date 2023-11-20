@@ -20,7 +20,6 @@ namespace TestTask_d20.Feautures.Dice
 
         private void OnEnable()
         {
-
             _dice.OnDiceThrown += ShowDiceValue;
         }
 

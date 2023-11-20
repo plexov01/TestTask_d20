@@ -2,7 +2,6 @@ namespace TestTask_d20.Feautures.Dice
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
     using Random = UnityEngine.Random;
     /// <summary>
@@ -22,6 +21,7 @@ namespace TestTask_d20.Feautures.Dice
         
         protected int _diceMaxValue = default;
         [SerializeField, Min(1)] protected int _difficulty = default;
+        
         /// <summary>
         ///  Сложность броска кубика
         /// </summary>
@@ -39,7 +39,6 @@ namespace TestTask_d20.Feautures.Dice
         protected List<bool> _historyDiceRolls = new List<bool>();
 
         protected int _historyCapacity = 3;
-        
         
         /// <summary>
         /// Бросить ккость
