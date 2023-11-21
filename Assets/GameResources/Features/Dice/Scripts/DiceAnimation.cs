@@ -25,7 +25,6 @@ namespace TestTask_d20.Feautures.Dice
         private void Awake()
         {
             _diceAllStates = Resources.LoadAll<Sprite>("Dices/Dice_d20/Images/DiceStates").ToList();
-            
         }
 
         private IEnumerator StartAnimationCoroutine()
@@ -112,7 +111,7 @@ namespace TestTask_d20.Feautures.Dice
             StartCoroutine(StartAnimationCoroutine());
             AbstractDice dice = FindObjectOfType<AbstractDice>();
                 // Resources.Load<AbstractDice>("Dice/Dice_d20/ScriptableObjects/Dice_d20");
-            dice.Difficulty = 10;
+            // dice.SetDifficulty(10);
             // Debug.Log(dice.ThrowDice());
         }
 

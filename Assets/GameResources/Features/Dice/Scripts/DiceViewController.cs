@@ -30,6 +30,7 @@ namespace TestTask_d20.Feautures.Dice
 
         private void ShowDiceValue(int value)
         {
+            Debug.Log(value);
             _image.sprite = _dice.GetSpriteDice(value - 1);
         }
 

@@ -2,6 +2,7 @@ namespace TestTask_d20.Feautures.Dice
 {
     using System;
     using System.Collections.Generic;
+    using ThrowDiceCheck;
     using UnityEngine;
     using Random = UnityEngine.Random;
     /// <summary>
@@ -20,31 +21,53 @@ namespace TestTask_d20.Feautures.Dice
         public bool EneableNegentropy = false;
         
         protected int _diceMaxValue = default;
-        [SerializeField, Min(1)] protected int _difficulty = default;
         
-        /// <summary>
-        ///  Сложность броска кубика
-        /// </summary>
-        public int Difficulty
+        protected List<Sprite> _diceStates = new List<Sprite>();
+
+        [SerializeField]
+        protected int _historyCapacity = 3;
+        
+        private List<bool> _historyDiceRolls = new List<bool>();
+        
+        private int _difficulty = default;
+
+        private ThrowDiceCheck _throwDiceCheck = default;        
+        
+        protected virtual void Awake()
         {
-            set {
-                if (value > 0 && value <= _diceMaxValue)
-                {
-                    _difficulty = value;
-                }
-            }
+            _throwDiceCheck = FindObjectOfType<ThrowDiceCheck>();
         }
 
-        protected List<Sprite> _diceStates = new List<Sprite>();
-        protected List<bool> _historyDiceRolls = new List<bool>();
+        protected virtual void OnEnable()
+        {
+            _throwDiceCheck.OnDifficultyChanged += SetDifficulty;
+        }
 
-        protected int _historyCapacity = 3;
+        protected virtual void OnDisable()
+        {
+            _throwDiceCheck.OnDifficultyChanged -= SetDifficulty;
+        }
+
+        /// <summary>
+        ///  Установить сложность броска кубика
+        /// </summary>
+        public void SetDifficulty(int value)
+        {
+            if (value > 0 && value <= _diceMaxValue)
+            {
+                _difficulty = value;
+            }
+            else
+            {
+                Debug.Log("Difficulty out of dice range");
+            }
+        }
         
         /// <summary>
         /// Бросить ккость
         /// </summary>
         /// <returns></returns>
-        public virtual void ThrowDice()
+        public void ThrowDice()
         {
             int diceValue = Random.Range(1, _diceMaxValue);
             bool success = diceValue >= _difficulty;
@@ -78,7 +101,7 @@ namespace TestTask_d20.Feautures.Dice
         }
         
         /// <summary>
-        /// Получить спрайт состояния кости
+        /// Получить спрайт состояния кости по индексу
         /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
@@ -86,7 +109,7 @@ namespace TestTask_d20.Feautures.Dice
         {
             if (indexSprite > _diceStates.Count-1)
             {
-                Debug.Log("indexSprite больше, чем количество спрайтов");
+                Debug.Log("indexSprite больше, чем количество спрайтов" + indexSprite + " " + (_diceStates.Count - 1));
                 return null;
             }
 

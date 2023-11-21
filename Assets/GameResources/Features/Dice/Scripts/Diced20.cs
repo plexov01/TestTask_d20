@@ -7,9 +7,11 @@ namespace TestTask_d20.Feautures.Dice
     /// </summary>
     public class Diced20 : AbstractDice
     {
-        private const string DiceImagesPath = "Dice/Dice_d20/Images/DiceStates";
-        protected void Awake()
+        private const string DiceImagesPath = "Dices/Dice_d20/Images/DiceStates";
+
+        protected override void Awake()
         {
+            base.Awake();
             _diceStates = Resources.LoadAll<Sprite>(DiceImagesPath).ToList();
             _diceMaxValue = 20;
         }
