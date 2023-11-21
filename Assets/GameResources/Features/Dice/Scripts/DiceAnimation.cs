@@ -24,7 +24,7 @@ namespace TestTask_d20.Feautures.Dice
 
         private void Awake()
         {
-            _diceAllStates = Resources.LoadAll<Sprite>("Dice/Dice_d20/Images/DiceStates").ToList();
+            _diceAllStates = Resources.LoadAll<Sprite>("Dices/Dice_d20/Images/DiceStates").ToList();
             
         }
 
