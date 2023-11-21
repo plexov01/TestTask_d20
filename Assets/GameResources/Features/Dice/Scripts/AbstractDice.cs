@@ -1,5 +1,6 @@
 namespace TestTask_d20.Feautures.Dice
 {
+    using Difficulty;
     using System;
     using System.Collections.Generic;
     using ThrowDiceCheck;
@@ -32,20 +33,22 @@ namespace TestTask_d20.Feautures.Dice
         private int _difficulty = default;
 
         private ThrowDiceCheck _throwDiceCheck = default;        
+        private DifficultyController _difficultyController = default;        
         
         protected virtual void Awake()
         {
             _throwDiceCheck = FindObjectOfType<ThrowDiceCheck>();
+            _difficultyController = FindObjectOfType<DifficultyController>();
         }
 
         protected virtual void OnEnable()
         {
-            _throwDiceCheck.OnDifficultyChanged += SetDifficulty;
+            _difficultyController.OnDifficultyChanged += SetDifficulty;
         }
 
         protected virtual void OnDisable()
         {
-            _throwDiceCheck.OnDifficultyChanged -= SetDifficulty;
+            _difficultyController.OnDifficultyChanged -= SetDifficulty;
         }
 
         /// <summary>
