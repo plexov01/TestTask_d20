@@ -1,5 +1,6 @@
 namespace TestTask_d20.Feautures.Dice
 {
+    using Difficulty;
     using System;
     using System.Collections.Generic;
     using ThrowDiceCheck;
@@ -20,32 +21,43 @@ namespace TestTask_d20.Feautures.Dice
         /// </summary>
         public bool EneableNegentropy = false;
         
+        protected int _diceCurrentValue = default;
+        /// <summary>
+        /// Текущеее значение кости
+        /// </summary>
+        public int DiceCurrentValue => _diceCurrentValue;
+
         protected int _diceMaxValue = default;
-        
+        /// <summary>
+        /// Максимальное значение кости
+        /// </summary>
+        public int DiceMaxValue => _diceMaxValue;
         protected List<Sprite> _diceStates = new List<Sprite>();
 
         [SerializeField]
-        protected int _historyCapacity = 3;
+        protected int _historyCapacity = 5;
         
         private List<bool> _historyDiceRolls = new List<bool>();
         
         private int _difficulty = default;
 
         private ThrowDiceCheck _throwDiceCheck = default;        
+        private DifficultyController _difficultyController = default;        
         
         protected virtual void Awake()
         {
             _throwDiceCheck = FindObjectOfType<ThrowDiceCheck>();
+            _difficultyController = FindObjectOfType<DifficultyController>();
         }
 
         protected virtual void OnEnable()
         {
-            _throwDiceCheck.OnDifficultyChanged += SetDifficulty;
+            _difficultyController.OnDifficultyChanged += SetDifficulty;
         }
 
         protected virtual void OnDisable()
         {
-            _throwDiceCheck.OnDifficultyChanged -= SetDifficulty;
+            _difficultyController.OnDifficultyChanged -= SetDifficulty;
         }
 
         /// <summary>
@@ -97,6 +109,7 @@ namespace TestTask_d20.Feautures.Dice
                 _historyDiceRolls.RemoveAt(0);
             }
 
+            _diceCurrentValue = diceValue;
             OnDiceThrown(diceValue);
         }
         

@@ -11,10 +11,15 @@ namespace TestTask_d20.Feautures.Modifier
         
         [SerializeField] private Text _modifierNumber = default;
         private Image _modifierImage = default;
+        private Animation _animation = default;
 
         private void Awake()
         {
             _modifierImage = GetComponent<Image>();
+            _animation = GetComponent<Animation>();
+            
+            AnimationClip clip = Resources.Load<AnimationClip>("Modifiers/Animations/Apply");
+            _animation.AddClip(clip, clip.name);
         }
 
         /// <summary>
@@ -27,7 +32,15 @@ namespace TestTask_d20.Feautures.Modifier
             _modifierNumber.text = text;
             _modifierImage.sprite = sprite;
         }
-
+        
+        /// <summary>
+        /// Проиграть анимацию применения модификатора
+        /// </summary>
+        public void ApplyModifierAnimation()
+        {
+            _animation.Play();
+        }
+        
     }
 
 }

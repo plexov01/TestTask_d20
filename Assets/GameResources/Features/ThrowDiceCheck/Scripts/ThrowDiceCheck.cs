@@ -1,6 +1,7 @@
 namespace TestTask_d20.Feautures.ThrowDiceCheck
 {
     using Dice;
+    using Difficulty;
     using Modifier;
     using System;
     using UnityEngine;
@@ -10,49 +11,55 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
     /// </summary>
     public class ThrowDiceCheck : MonoBehaviour
     {
-        public event Action<int> OnDifficultyChanged = delegate {  };
-        public int Difficulty = default;
-
+        public event Action<bool> OnDiceChecked = delegate {  };
+        private int _difficulty = default;
+        private int _currentDiceValue = default;
+        
         private AbstractDice _dice = default;
+        private DiceAnimator _diceAnimator = default;
         private ModifiersController _modifiersController = default;
-
+        private DifficultyController _difficultyController = default;
         private void Awake()
         {
+            _difficultyController = FindObjectOfType<DifficultyController>();
             _dice = FindObjectOfType<AbstractDice>();
+            _diceAnimator = FindObjectOfType<DiceAnimator>();
             _modifiersController = FindObjectOfType<ModifiersController>();
         }
-
-        private void Start()
-        {
-            OnDifficultyChanged(Difficulty);            
-        }
-
+        
         private void OnEnable()
         {
-            _dice.OnDiceThrown += CheckThrow;
+            _difficultyController.OnDifficultyChanged += SetDifficulty;
+            _dice.OnDiceThrown += SetCurrentDiceValue;
+            _diceAnimator.OnDiceAllStatesShowed += CheckThrow;
         }
 
         private void OnDisable()
         {
-            _dice.OnDiceThrown -= CheckThrow;
+            _difficultyController.OnDifficultyChanged -= SetDifficulty;
+            _dice.OnDiceThrown -= SetCurrentDiceValue;
+            _diceAnimator.OnDiceAllStatesShowed -= CheckThrow;
+        }
+
+        private void SetDifficulty(int difficulty)
+        {
+            _difficulty = difficulty;
         }
 
         /// <summary>
         /// Проверить бросок кости
         /// </summary>
         /// <param name="diceValue"></param>
-        public void CheckThrow(int diceValue)
+        public void CheckThrow()
         {
             int sumModifiers = _modifiersController.GetAbilityModifiersSum();
-            
-            if (diceValue + sumModifiers >= Difficulty)
-            {
-                Debug.Log("success");
-            }
-            else
-            {
-                Debug.Log("unsuccess");
-            }
+
+            OnDiceChecked(_currentDiceValue + sumModifiers >= _difficulty);
+        }
+
+        private void SetCurrentDiceValue(int currentDiceValue)
+        {
+            _currentDiceValue = currentDiceValue;
         }
 
     }
