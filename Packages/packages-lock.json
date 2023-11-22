@@ -1,5 +1,6 @@
 {
   "dependencies": {
+
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -15,6 +16,7 @@
       },
       "url": "https://packages.unity.com"
     },
+
     "com.unity.collab-proxy": {
       "version": "1.15.18",
       "depth": 0,
@@ -77,6 +79,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+
     "com.unity.mathematics": {
       "version": "1.2.6",
       "depth": 1,
@@ -84,6 +87,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
       "depth": 2,
@@ -98,6 +102,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+
     "com.unity.render-pipelines.core": {
       "version": "12.1.7",
       "depth": 1,
@@ -126,6 +131,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+
     "com.unity.services.core": {
       "version": "1.4.0",
       "depth": 1,
@@ -144,6 +150,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+
     "com.unity.shadergraph": {
       "version": "12.1.7",
       "depth": 1,
@@ -153,6 +160,7 @@
         "com.unity.searcher": "4.9.1"
       }
     },
+
     "com.unity.test-framework": {
       "version": "1.1.31",
       "depth": 0,
