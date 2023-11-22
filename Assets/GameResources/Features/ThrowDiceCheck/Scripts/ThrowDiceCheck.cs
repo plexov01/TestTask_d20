@@ -31,14 +31,14 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
         {
             _difficultyController.OnDifficultyChanged += SetDifficulty;
             _dice.OnDiceThrown += SetCurrentDiceValue;
-            _diceAnimator.OnDiceShowed += CheckThrow;
+            _diceAnimator.OnDiceAllStatesShowed += CheckThrow;
         }
 
         private void OnDisable()
         {
             _difficultyController.OnDifficultyChanged -= SetDifficulty;
             _dice.OnDiceThrown -= SetCurrentDiceValue;
-            _diceAnimator.OnDiceShowed -= CheckThrow;
+            _diceAnimator.OnDiceAllStatesShowed -= CheckThrow;
         }
 
         private void SetDifficulty(int difficulty)

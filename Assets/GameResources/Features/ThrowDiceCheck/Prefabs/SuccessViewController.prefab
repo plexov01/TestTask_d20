@@ -216,6 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebedf740beed53840b56af2b42bf5077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeShowingSuccess: 0.5
+  TimeShowingSuccess: 1
   _successPanel: {fileID: 687056270978468672}
   _successText: {fileID: 687056269938370744}

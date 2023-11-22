@@ -170,9 +170,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TestTask_d20.Feautures.Dice.DiceAnimation, Assembly-CSharp
-        m_MethodName: StartAnimation
+      - m_Target: {fileID: 7539736711906127645}
+        m_TargetAssemblyTypeName: TestTask_d20.Feautures.Dice.AbstractDice, Assembly-CSharp
+        m_MethodName: ThrowDice
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

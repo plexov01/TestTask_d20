@@ -1,12 +1,13 @@
 namespace TestTask_d20.Feautures.Dice
 {
+    using Modifier;
     using System;
     using System.Collections;
     using System.Linq;
     using UnityEngine;
 
     /// <summary>
-    /// КонтроллерАнимации кости
+    /// Контроллер Анимации кости
     /// </summary>
     public class DiceAnimator : MonoBehaviour
     {
@@ -21,21 +22,28 @@ namespace TestTask_d20.Feautures.Dice
         public event Action<int> OnDiceModifiersApplied = delegate {  };
         
         /// <summary>
+        /// Показано значение кости
+        /// </summary>
+        public event Action OnDiceStateShowed = delegate {  };
+        
+        /// <summary>
         /// Анимация кости полностью показана
         /// </summary>
-        public event Action OnDiceShowed = delegate {  }; 
+        public event Action OnDiceAllStatesShowed = delegate {  }; 
         
         private string _currentAnimation = default;
-
         private bool _coroutineRunning = false;
 
         private AbstractDice _dice = default;
+        private ModifiersController _modifiersController = default;
 
         private Animator _animator = default;
 
         private void Awake()
         {
             _dice = FindObjectOfType<AbstractDice>();
+            _modifiersController = FindObjectOfType<ModifiersController>();
+            
             _animator = _dice.GetComponent<Animator>();
         }
 
@@ -47,11 +55,13 @@ namespace TestTask_d20.Feautures.Dice
         private void OnEnable()
         {
             _dice.OnDiceThrown += StartDiceThrowAnimation;
+            _modifiersController.OnModifiersApplied += StartApplyModifiersAnimation;
         }
 
         private void OnDisable()
         {
             _dice.OnDiceThrown -= StartDiceThrowAnimation;
+            _modifiersController.OnModifiersApplied -= StartApplyModifiersAnimation;
         }
         private void StartDiceThrowAnimation(int diceValue)
         {
@@ -61,11 +71,12 @@ namespace TestTask_d20.Feautures.Dice
             }
         }
 
-        private void StartApplyModifiersAnimation(int finalValue)
+        private void StartApplyModifiersAnimation(int modifiersValue)
         {
+            Debug.Log(_coroutineRunning);
             if (!_coroutineRunning)
             {
-                StartCoroutine(StartApplyModifiersAnimationCoroutine(finalValue));
+                StartCoroutine(StartApplyModifiersAnimationCoroutine(modifiersValue));
             }
         }
 
@@ -91,16 +102,23 @@ namespace TestTask_d20.Feautures.Dice
             yield return new WaitForSeconds(timeAnimation);
             
             OnStateDiceChanged(diceValue);
-
             _coroutineRunning = false;
+            
+            OnDiceStateShowed();
             yield return null;
             
         }
 
-        private IEnumerator StartApplyModifiersAnimationCoroutine(int finalValue)
+        private IEnumerator StartApplyModifiersAnimationCoroutine(int modifiresValue)
         {
             _coroutineRunning = true;
-            OnStateDiceChanged(finalValue);
+
+            int currentValue = _dice.DiceCurrentValue + modifiresValue;
+            if (currentValue > _dice.DiceMaxValue)
+            {
+                currentValue = _dice.DiceMaxValue;
+            }
+            OnStateDiceChanged(currentValue);
             _currentAnimation = "ApplyModifiers";
             _animator.Play(_currentAnimation);
             
@@ -109,11 +127,10 @@ namespace TestTask_d20.Feautures.Dice
 
             float timeAnimation = currentAnimationClip.length;
 
-            yield return new WaitForSeconds(timeAnimation);
-            OnDiceModifiersApplied(finalValue);
-            
-            
-            OnDiceShowed();
+            yield return new WaitForSeconds(timeAnimation+1);
+
+
+            OnDiceAllStatesShowed();
             
             _coroutineRunning = false;
         }

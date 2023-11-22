@@ -23,13 +23,13 @@ namespace TestTask_d20.Feautures.Dice
         private void OnEnable()
         {
             _diceAnimator.OnStateDiceChanged += ShowDiceValue;
-            _diceAnimator.OnDiceShowed += ResetSprite;
+            _diceAnimator.OnDiceAllStatesShowed += ResetSprite;
         }
 
         private void OnDisable()
         {
             _diceAnimator.OnStateDiceChanged -= ShowDiceValue;
-            _diceAnimator.OnDiceShowed -= ResetSprite;
+            _diceAnimator.OnDiceAllStatesShowed -= ResetSprite;
         }
 
         private void ShowDiceValue(int value)

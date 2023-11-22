@@ -21,7 +21,17 @@ namespace TestTask_d20.Feautures.Dice
         /// </summary>
         public bool EneableNegentropy = false;
         
+        protected int _diceCurrentValue = default;
+        /// <summary>
+        /// Текущеее значение кости
+        /// </summary>
+        public int DiceCurrentValue => _diceCurrentValue;
+
         protected int _diceMaxValue = default;
+        /// <summary>
+        /// Максимальное значение кости
+        /// </summary>
+        public int DiceMaxValue => _diceMaxValue;
         protected List<Sprite> _diceStates = new List<Sprite>();
 
         [SerializeField]
@@ -99,6 +109,7 @@ namespace TestTask_d20.Feautures.Dice
                 _historyDiceRolls.RemoveAt(0);
             }
 
+            _diceCurrentValue = diceValue;
             OnDiceThrown(diceValue);
         }
         
