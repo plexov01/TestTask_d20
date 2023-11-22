@@ -1,6 +1,7 @@
 namespace TestTask_d20.Feautures.ObjectCreator
 {
     using UnityEngine;
+    
     /// <summary>
     /// Создатель для объектов на сцене
     /// </summary>

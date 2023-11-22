@@ -10,7 +10,6 @@ namespace TestTask_d20.Feautures.Modifier
     /// </summary>
     public class ModifiersController : MonoBehaviour
     {
-        // public event Action On 
         private List<Modifier> _modifiers = new List<Modifier>();
 
         private GameObject _prefabModifier = default;
