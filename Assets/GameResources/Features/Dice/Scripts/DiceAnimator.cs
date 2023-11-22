@@ -17,11 +17,6 @@ namespace TestTask_d20.Feautures.Dice
         public event Action<int> OnStateDiceChanged = delegate {  }; 
         
         /// <summary>
-        /// Показаны модификаторы
-        /// </summary>
-        public event Action<int> OnDiceModifiersApplied = delegate {  };
-        
-        /// <summary>
         /// Показано значение кости
         /// </summary>
         public event Action OnDiceStateShowed = delegate {  };
@@ -149,6 +144,7 @@ namespace TestTask_d20.Feautures.Dice
             
             //Ждём пока воспроизведение анимации закончится
             yield return new WaitForSeconds(timeAnimation+1);
+            
             // Оповещаем, что все анимации кости показаны
             OnDiceAllStatesShowed();
             

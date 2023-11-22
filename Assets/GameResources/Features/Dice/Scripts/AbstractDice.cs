@@ -18,7 +18,7 @@ namespace TestTask_d20.Feautures.Dice
         public event Action<int> OnDiceThrown = delegate { };
         
         /// <summary>
-        /// Исключение несколько проигрышей или выигрышей подряд
+        /// Исключение несколько проигрышей или выигрышей подряд (включение негэнтропии)
         /// </summary>
         public bool EneableNegentropy = false;
         
@@ -77,7 +77,7 @@ namespace TestTask_d20.Feautures.Dice
         }
         
         /// <summary>
-        /// Бросить ккость
+        /// Бросить кость
         /// </summary>
         /// <returns></returns>
         public void ThrowDice()

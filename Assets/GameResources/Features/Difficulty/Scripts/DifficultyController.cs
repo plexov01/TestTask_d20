@@ -2,8 +2,9 @@ namespace TestTask_d20.Feautures.Difficulty
 {
     using System;
     using UnityEngine;
+    
     /// <summary>
-    /// Сложность выброса успешного броска кубика
+    /// Сложность успешного броска кубика
     /// </summary>
     public sealed class DifficultyController : MonoBehaviour
     {
