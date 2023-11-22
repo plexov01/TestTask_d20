@@ -33,14 +33,21 @@ namespace TestTask_d20.Feautures.Dice
         
         private string _currentAnimation = default;
         private bool _coroutineRunning = false;
+        
+        private AudioSource _audioSource = default;
+        private AudioClip _diceThrowClip = default;
 
         private AbstractDice _dice = default;
         private ModifiersController _modifiersController = default;
 
         private Animator _animator = default;
+        
 
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
+            _diceThrowClip = Resources.Load<AudioClip>("Dices/Dice_d20/Sounds/ThrowDiceSound");
+
             _dice = FindObjectOfType<AbstractDice>();
             _modifiersController = FindObjectOfType<ModifiersController>();
             
@@ -73,7 +80,6 @@ namespace TestTask_d20.Feautures.Dice
 
         private void StartApplyModifiersAnimation(int modifiersValue)
         {
-            Debug.Log(_coroutineRunning);
             if (!_coroutineRunning)
             {
                 StartCoroutine(StartApplyModifiersAnimationCoroutine(modifiersValue));
@@ -83,6 +89,10 @@ namespace TestTask_d20.Feautures.Dice
         private IEnumerator StartRollAnimationCoroutine(int diceValue)
         {
             _coroutineRunning = true;
+            // Проигрываем звук броска кубика
+            _audioSource.PlayOneShot(_diceThrowClip);
+            
+            //Запускаем анимацию OutZoom
             _currentAnimation = "OutZoom";
             _animator.Play(_currentAnimation);
             
@@ -90,8 +100,10 @@ namespace TestTask_d20.Feautures.Dice
                 .First(x => x.name == _currentAnimation);
 
             float timeAnimation = currentAnimationClip.length;
+            //Ждём пока воспроизведение анимации закончится
             yield return new WaitForSeconds(timeAnimation);
             
+            //Запускаем анимацию Roll
             _currentAnimation = "Roll";
             _animator.Play(_currentAnimation);
             
@@ -99,11 +111,15 @@ namespace TestTask_d20.Feautures.Dice
                 .First(x => x.name == _currentAnimation);
 
             timeAnimation = currentAnimationClip.length;
+            
+            //Ждём пока воспроизведение анимации закончится
             yield return new WaitForSeconds(timeAnimation);
             
+            // Оповещаем, что число на кости изменилось
             OnStateDiceChanged(diceValue);
             _coroutineRunning = false;
             
+            // Оповещаем, что этап кручения кости показан
             OnDiceStateShowed();
             yield return null;
             
@@ -112,13 +128,17 @@ namespace TestTask_d20.Feautures.Dice
         private IEnumerator StartApplyModifiersAnimationCoroutine(int modifiresValue)
         {
             _coroutineRunning = true;
-
+            
             int currentValue = _dice.DiceCurrentValue + modifiresValue;
             if (currentValue > _dice.DiceMaxValue)
             {
                 currentValue = _dice.DiceMaxValue;
             }
+            
+            // Оповещаем, что число на кости изменилось
             OnStateDiceChanged(currentValue);
+            
+            //Запускаем анимацию ApplyModifiers
             _currentAnimation = "ApplyModifiers";
             _animator.Play(_currentAnimation);
             
@@ -126,10 +146,10 @@ namespace TestTask_d20.Feautures.Dice
                 .First(x => x.name == _currentAnimation);
 
             float timeAnimation = currentAnimationClip.length;
-
+            
+            //Ждём пока воспроизведение анимации закончится
             yield return new WaitForSeconds(timeAnimation+1);
-
-
+            // Оповещаем, что все анимации кости показаны
             OnDiceAllStatesShowed();
             
             _coroutineRunning = false;

@@ -273,7 +273,6 @@ GameObject:
   - component: {fileID: 296925386}
   - component: {fileID: 296925388}
   - component: {fileID: 296925387}
-  - component: {fileID: 296925390}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -343,18 +342,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296925385}
   m_CullTransparentMesh: 1
---- !u!114 &296925390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296925385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49e417dc84382d4786e12928e2ca109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &649466778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,6 +994,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 296925386}
     m_Modifications:
+    - target: {fileID: 1697089120652133517, guid: a2f48bd4877e7d047a8fc328c44a0c1a, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7539736711906127616, guid: a2f48bd4877e7d047a8fc328c44a0c1a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

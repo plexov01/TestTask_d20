@@ -1,7 +1,6 @@
 namespace TestTask_d20.Feautures.Modifier
 {
     using UnityEngine;
-    using UnityEngine.Serialization;
 
     /// <summary>
     /// Абстрактный модификатор

@@ -6,6 +6,7 @@ namespace TestTask_d20.Feautures.Dice
     using ThrowDiceCheck;
     using UnityEngine;
     using Random = UnityEngine.Random;
+    
     /// <summary>
     /// Абстрактная игральная кость
     /// </summary>

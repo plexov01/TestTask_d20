@@ -7,11 +7,15 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
     using UnityEngine;
     
     /// <summary>
-    /// Проверка броска кубика
+    /// Класс для проверки броска кубика
     /// </summary>
     public class ThrowDiceCheck : MonoBehaviour
     {
+        /// <summary>
+        /// Кости проверены
+        /// </summary>
         public event Action<bool> OnDiceChecked = delegate {  };
+        
         private int _difficulty = default;
         private int _currentDiceValue = default;
         
@@ -19,6 +23,7 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
         private DiceAnimator _diceAnimator = default;
         private ModifiersController _modifiersController = default;
         private DifficultyController _difficultyController = default;
+        
         private void Awake()
         {
             _difficultyController = FindObjectOfType<DifficultyController>();
@@ -53,7 +58,8 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
         public void CheckThrow()
         {
             int sumModifiers = _modifiersController.GetAbilityModifiersSum();
-
+            
+            // Оповещение о результате проверки
             OnDiceChecked(_currentDiceValue + sumModifiers >= _difficulty);
         }
 

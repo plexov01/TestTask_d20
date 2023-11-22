@@ -6,6 +6,7 @@ namespace TestTask_d20.Feautures.Modifier
     /// <summary>
     /// Контроллер UI модификатора
     /// </summary>
+    [RequireComponent(typeof(Image), typeof(Animation))]
     public class ModifierViewController : MonoBehaviour
     {
         

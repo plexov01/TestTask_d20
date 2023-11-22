@@ -22,6 +22,9 @@ namespace TestTask_d20.Feautures.Modifier
         private List<ModifierViewController> _modifierViewControllers = new List<ModifierViewController>();
         
         private GameObject _prefabModifier = default;
+        
+        private AudioSource _audioSource = default;
+        private AudioClip _modifiersAppliedClip = default;
 
         private ObjectCreator _objectCreator = default;
         private DiceAnimator _diceAnimator = default;
@@ -29,6 +32,9 @@ namespace TestTask_d20.Feautures.Modifier
         
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
+            _modifiersAppliedClip = Resources.Load<AudioClip>("Modifiers/Sounds/ModifiersApply");
+
             _objectCreator = FindObjectOfType<ObjectCreator>();
             _diceAnimator = FindObjectOfType<DiceAnimator>();
             
@@ -57,6 +63,8 @@ namespace TestTask_d20.Feautures.Modifier
             
             yield return new WaitForSeconds(1f);
             
+            //Проигрываем звук применения модификаторов
+            _audioSource.PlayOneShot(_modifiersAppliedClip);
             OnModifiersApplied(GetAbilityModifiersSum());
         }
         
