@@ -13,28 +13,32 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
     {
         public event Action<bool> OnDiceChecked = delegate {  };
         private int _difficulty = default;
+        private int _currentDiceValue = default;
         
-        private DifficultyController _difficultyController = default;
         private AbstractDice _dice = default;
+        private DiceAnimator _diceAnimator = default;
         private ModifiersController _modifiersController = default;
-
+        private DifficultyController _difficultyController = default;
         private void Awake()
         {
             _difficultyController = FindObjectOfType<DifficultyController>();
             _dice = FindObjectOfType<AbstractDice>();
+            _diceAnimator = FindObjectOfType<DiceAnimator>();
             _modifiersController = FindObjectOfType<ModifiersController>();
         }
         
         private void OnEnable()
         {
             _difficultyController.OnDifficultyChanged += SetDifficulty;
-            _dice.OnDiceThrown += CheckThrow;
+            _dice.OnDiceThrown += SetCurrentDiceValue;
+            _diceAnimator.OnDiceShowed += CheckThrow;
         }
 
         private void OnDisable()
         {
             _difficultyController.OnDifficultyChanged -= SetDifficulty;
-            _dice.OnDiceThrown -= CheckThrow;
+            _dice.OnDiceThrown -= SetCurrentDiceValue;
+            _diceAnimator.OnDiceShowed -= CheckThrow;
         }
 
         private void SetDifficulty(int difficulty)
@@ -46,21 +50,16 @@ namespace TestTask_d20.Feautures.ThrowDiceCheck
         /// Проверить бросок кости
         /// </summary>
         /// <param name="diceValue"></param>
-        public void CheckThrow(int diceValue)
+        public void CheckThrow()
         {
             int sumModifiers = _modifiersController.GetAbilityModifiersSum();
-            
-            if (diceValue + sumModifiers >= _difficulty)
-            {
-                Debug.Log("success" + (diceValue + sumModifiers));
-                //TODO: показать UI прогресса
-            }
-            else
-            {
-                Debug.Log("unsuccess" + (diceValue + sumModifiers));
-            }
 
-            OnDiceChecked(diceValue + sumModifiers >= _difficulty);
+            OnDiceChecked(_currentDiceValue + sumModifiers >= _difficulty);
+        }
+
+        private void SetCurrentDiceValue(int currentDiceValue)
+        {
+            _currentDiceValue = currentDiceValue;
         }
 
     }

@@ -22,11 +22,10 @@ namespace TestTask_d20.Feautures.Dice
         public bool EneableNegentropy = false;
         
         protected int _diceMaxValue = default;
-        
         protected List<Sprite> _diceStates = new List<Sprite>();
 
         [SerializeField]
-        protected int _historyCapacity = 3;
+        protected int _historyCapacity = 5;
         
         private List<bool> _historyDiceRolls = new List<bool>();
         

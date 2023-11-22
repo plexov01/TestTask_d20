@@ -831,6 +831,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SuccessViewController
       objectReference: {fileID: 0}
+    - target: {fileID: 687056271377301896, guid: 8c56f0f96f458ae4ca69820cdc2dda4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 687056271377301903, guid: 8c56f0f96f458ae4ca69820cdc2dda4d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1130,6 +1134,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 296925386}
     m_Modifications:
+    - target: {fileID: 8666688364455257801, guid: 708b611a186961149bcd533796615f9e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8666688364455257801, guid: 708b611a186961149bcd533796615f9e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9150894573813774528, guid: 708b611a186961149bcd533796615f9e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
